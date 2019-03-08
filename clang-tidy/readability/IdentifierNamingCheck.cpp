@@ -470,13 +470,13 @@ static StyleKind findStyleKind(
         return SK_Constant;
     }
 
-    if (Decl->getAccess() == AS_private && NamingStyles[SK_PrivateMember])
+    if (Decl->getAccess() == AS_private && NamingStyles[SK_PrivateMember] && Decl->getParent()->isClass())
       return SK_PrivateMember;
 
-    if (Decl->getAccess() == AS_protected && NamingStyles[SK_ProtectedMember])
+    if (Decl->getAccess() == AS_protected && NamingStyles[SK_ProtectedMember] && Decl->getParent()->isClass())
       return SK_ProtectedMember;
 
-    if (Decl->getAccess() == AS_public && NamingStyles[SK_PublicMember])
+    if (Decl->getAccess() == AS_public && NamingStyles[SK_PublicMember] && Decl->getParent()->isClass())
       return SK_PublicMember;
 
     if (NamingStyles[SK_Member])
