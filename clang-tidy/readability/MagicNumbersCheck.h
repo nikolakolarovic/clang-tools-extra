@@ -64,6 +64,10 @@ private:
     if (isSyntheticValue(Result.SourceManager, MatchedLiteral))
       return;
 
+    // Skip literals that are template parameters
+    if (MatchedLiteral->isInstantiationDependent() || MatchedLiteral->isTypeDependent())
+      return;
+
     const StringRef LiteralSourceText = Lexer::getSourceText(
         CharSourceRange::getTokenRange(MatchedLiteral->getSourceRange()),
         *Result.SourceManager, getLangOpts());
